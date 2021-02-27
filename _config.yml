@@ -1,6 +1,7 @@
 title: Cogitorium
 description: A thought tank, by Michael J. Culbertson
 permalink: /:year/:month/:title
+url: https://cogitorium.info
 
 plugins:
   - jekyll-feed
