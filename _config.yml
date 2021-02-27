@@ -1,0 +1,31 @@
+title: Cogitorium
+description: A thought tank, by Michael J. Culbertson
+permalink: /:year/:month/:title
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-gist
+
+author:
+  name: Michael J. Culbertson
+  twitter: mjculb
+
+twitter:
+  twitter: mjculb
+
+logo: icon.png
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      toc: true
+
+exclude:
+  - .jekyll-cache/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
