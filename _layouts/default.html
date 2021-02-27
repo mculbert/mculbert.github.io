@@ -11,6 +11,7 @@
   <link rel="icon" href="/icon.png">
   <link rel="apple-touch-icon" href="/icon.png">
   <link rel="mask-icon" href="/logo.svg">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W999H48Z7X"></script>
 </head>
 <body><div class="container">
 
@@ -58,19 +59,10 @@
 <script>
 //<![CDATA[
 {% if jekyll.environment == 'production' %}
-localDomain = document.URL.substr(0,
-               document.URL.indexOf("/",
-                 document.URL.indexOf("://")+3) );
-alist = document.getElementsByTagName('a');
-for (i=0; i < alist.length; i++)
-{
-  if (alist[i].href && alist[i].href.substr(0, localDomain.length) != localDomain)
-  {
-    alist[i].onclick = function() {
-      gtag('event', 'click', { 'event_category': 'outbound', 'event_label': this.href, 'transport_type': 'beacon' });
-    };
-  }
-}
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-W999H48Z7X');
 {% endif %}
 {% if site.github.repository_nwo %}
 fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?path={{ page.path }}&page=1&per_page=2")
