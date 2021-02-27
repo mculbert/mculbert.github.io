@@ -1,0 +1,40 @@
+---
+title: Index
+by_month: true
+---
+
+<h1 id="by-date">By Date</h1>
+{% assign current_year = "" %}
+{% for post in site.posts %}
+  {% assign post_year = post.date | date: "%Y" %}
+  {% unless current_year == post_year %}
+    {% unless current_year == "" %}</ul>{% endunless %}
+    {% assign current_year = post_year %}
+    {% assign current_month = "" %}
+    <h2 id="{{ current_year }}">{{ current_year }}</h2>{% unless page.by_month %}<ul class="post-index">{% endunless %}
+  {% endunless %}
+  {% if page.by_month %}
+    {% assign post_month = post.date | date: "%B" %}
+    {% unless current_month == post_month %}
+      {% unless current_month == "" %}</ul>{% endunless %}
+      {% assign current_month = post_month %}
+      <h3 id="{{ current_year }}-{{ post.date | date: "%m" }}">{{ current_month }}</h3><ul class="post-index">
+    {% endunless %}
+  {% endif %}
+        <li>{% if page.by_month %}{{ post.date | date: "%e" }}{% else %}{{ post.date | date: "%B %e" }}{% endif %} : <a href="{{ post.url }}">{{ post.title }}</a><p>{{ post.description | default: post.excerpt | strip_html | slice: 0, 160 }}</p></li>
+{% endfor %}
+</ul>
+
+<h1 id="by-tag">By Subject</h1>
+{% assign tags = "" %}
+{% for tag_pair in site.tags %}
+  {% assign tags = tag_pair | first | append: "," | append: tags %}
+{% endfor %}
+{% assign tags = tags | split: "," | sort_natural %}
+{% for tag in tags %}
+  <h2 id="tag-{{ tag | slugify }}">{{ tag }}</h2><ul>
+  {% for post in site.tags[tag] %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%B %e, %Y" }}){% comment %}{{ post.description | default: post.excerpt }}{% endcomment %}</li>
+  {% endfor %}
+  </ul>
+{% endfor %}

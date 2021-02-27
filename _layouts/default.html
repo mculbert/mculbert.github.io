@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i|Proza+Libre:400,400i,700,700i|Ubuntu+Mono:400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.typekit.net/kbb3nhb.css">
+  <link rel="stylesheet" href="/style.css" />
+  {% feed_meta %}
+  {% seo %}
+  <link rel="icon" href="/icon.png">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="mask-icon" href="/logo.svg">
+</head>
+<body><div class="container">
+
+<header>
+<div class="header-row-above">
+  <div class="print-qr-code"></div>
+  <div class="shareBtns"><ul>
+    <li><svg class="svg-icon" role="img" aria-label="Share this page via:"><use href="/icons.svg#share"/></svg></li>
+    <li><a href="http://twitter.com/intent/tweet?text={{ page.title | uri_excape }}&url={{ page.url | absolute_url }}&via=mjculb" onclick="gtag('event', 'share', { 'event_category' : 'Twitter', 'event_label' : '{{ page_url | absolute_url }}', 'transport_type' : 'beacon'});"><svg class="svg-icon" role="button" aria-label="Twitter"><use href="/icons.svg#twitter"/></svg></a></li>
+    <li><a href="http://facebook.com/sharer/sharer.php?u={{ page.url | absolute_url }}" onclick="gtag('event', 'share', { 'event_category' : 'Facebook', 'event_label' : '{{ page_url | absolute_url }}', 'transport_type' : 'beacon'});"><svg class="svg-icon" role="button" aria-label="Facebook"><use href="/icons.svg#facebook"/></svg></a></li>
+    <li><a href="http://reddit.com/submit?url={{ page.url | absolute_url }}&title={{ page.title | uri_escape }}" onclick="gtag('event', 'share', { 'event_category' : 'Reddit', 'event_label' : '{{ page_url | absolute_url }}', 'transport_type' : 'beacon'});"><svg class="svg-icon" role="button" aria-label="Reddit"><use href="/icons.svg#reddit"/></svg></a></li>
+    <li><a href="mailto:?subject={{ page.title | uri_escape }}&body={{ page.url | absolute_url }}" onclick="gtag('event', 'share', { 'event_category' : 'Email', 'event_label' : '{{ page_url | absolute_url }}', 'transport_type' : 'beacon'});"><svg class="svg-icon" role="button" aria-label="Email"><use href="/icons.svg#email"/></svg></a></li>
+    <li><a href="javascript:window.print()" onclick="gtag('event', 'print', { 'event_label' : '{{ page_url | absolute_url }}', 'transport_type' : 'beacon'});"><svg class="svg-icon" role="button" aria-label="Print"><use href="/icons.svg#print"/></svg></a></li>
+  </ul></div>
+  <div class="pagetitle">{{ page.title }}</div>
+</div>
+<div class="header-row-below">
+  <div class="postdate">{{ page.date | date: "%A, %B %e, %Y" }}</div>
+  <div class="site-nav"><nav aria-label="Site Navigation"><ul>
+    {% if page.previous %}<li><a href="{{ page.previous.url }}" aria-label="Previous Post">Prev.</a></li>{% endif %}
+    {% if page.next %}<li><a href="{{ page.next.url }}"" aria-label="Next Post">Next</a></li>{% endif %}
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/siteindex">Index</a></li>
+    </ul></nav></div>
+</div>
+</header>
+
+<main>
+{% if page.toc %}{% capture TOC %}{% include toc.html html=content %}{% endcapture %}
+{% assign TOC = TOC | strip %}{% unless TOC == "" %}
+<div class="toc"><nav aria-label="Page Table of Contents">
+{{ TOC }}
+</nav></div>
+{% endunless %}{% endif %}
+
+{% if page.noanchor %}{{ content }}{% else %}{% include anchor_headings.html html=content anchorBody='<svg height="18px" width="18px" aria-label="(link to heading)"><use href="/icons.svg#link"/></svg>' anchorClass="anchor" %}{% endif %}
+</main>
+
+<footer>
+<div class="revision"></div>
+</footer>
+
+</div>
+<script>
+//<![CDATA[
+{% if jekyll.environment == 'production' %}
+localDomain = document.URL.substr(0,
+               document.URL.indexOf("/",
+                 document.URL.indexOf("://")+3) );
+alist = document.getElementsByTagName('a');
+for (i=0; i < alist.length; i++)
+{
+  if (alist[i].href && alist[i].href.substr(0, localDomain.length) != localDomain)
+  {
+    alist[i].onclick = function() {
+      gtag('event', 'click', { 'event_category': 'outbound', 'event_label': this.href, 'transport_type': 'beacon' });
+    };
+  }
+}
+{% endif %}
+{% if site.github.repository_nwo %}
+fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?path={{ page.path }}&page=1&per_page=2")
+  .then((response) => { return response.json(); })
+  .then((json) => {
+    if (json.length > 1) {
+      var d = new Date(json[0].commit.author.date);
+      document.querySelector("div.revision").innerHTML = "Revised " +
+        d.toLocaleString() + ": " +
+        json[0].commit.message + " (<a href='{{ site.github.repository_url }}/commits/master/{{ page.path }}'>history</a>)";
+    } });
+{% endif %}
+window.onbeforeprint = function(e) { document.querySelector('div.print-qr-code').innerHTML = "<img src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{ page.url | absolute_url }}'/>"; };
+//]]>
+</script>
+</body>
+</html>

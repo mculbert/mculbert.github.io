@@ -1,0 +1,72 @@
+
+$K100: #000000;
+$K75:  #3b3b3b;
+$K50:  #777777;
+$K25:  #b8b8b8;
+$K10:  #e2e2e2;
+
+$sans: 'Gill Sans', 'Gill Sans MT', 'Gill Sans Nova', 'gill-sans-nova', 'Proza Libre', 'Proza', 'Lato', sans-serif;
+$serif: 'Crimson Text', serif;
+$mono: 'Ubuntu Mono', monospace;
+
+div.pagetitle { font: 1.45rem/1.33 $sans; }
+div.header-row-above { font: 1rem/1 $sans; }
+div.header-row-below { font: 1rem/1.36 $sans; }
+div.revision { font: 1rem/1.36 $sans; }
+div.toc { font: 1rem/1.36 $sans; }
+
+ul.post-index li { font: 1rem/1.36 $serif; }
+ul.post-index li p { font: 1rem/1.36 $sans; }
+div.gr { font-family: $serif; }
+div.gr_custom_review_1592669016 { font-family: $sans; }
+
+h1 { font: bold 1.27rem/1.45 $sans; }
+h2 { font: italic 1.27rem/1.45 $sans; }
+h3 { font: bold 1rem/1.36 $sans; }
+
+h4, p { font: 1rem/1.36 $serif; }
+h4 { font-style: italic; color: #777777; }
+div.footnotes, div.footnotes p  { font: .9rem/1.22 $serif; }
+
+.anchor { color: $K50; }
+
+figure table {
+  font-family: $sans;
+  th { font-weight: normal; }
+  tfoot { font-size: .9rem; line-spacing: 1.22; }
+}
+
+figure.box, figure.box p { font-family: $sans; }
+
+p.margin, figcaption { font: 1rem/1.36 $sans; }
+p.callout { font: italic 1rem/1.36 $sans; }
+figcaption { font-weight: bold; }
+
+@media screen and (min-width: 738px) {
+  p.margin { font-weight: bold; }
+  p.callout { font-style: normal; }
+}
+
+code { font: 1rem/1.36 $mono; }
+
+.highlight {
+  .c, .cm, .cp, .c1, .cs { color: $K50 } // Comment
+  .err   { color: $K100; background-color: $K25 } // Error
+  .o, .ow, .p { color: $K50; } // Operator, Parentheses
+  .k, .kd, .kp, .kr, .kt, .nb, .bp { color: $K50; font-weight: bold; } // Keyword
+  .kc, .no, .ni,  // Keyword.Constant, Name.Constant, Name.Entity
+  .m, .mf, .mh, .mi, .mo, .il, // Literal.Number, Literal.String
+  .s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss,
+    { color: $K75; }
+  .na, .nc, .ne, .nf, .nn, .nt, .nv, .vc, .vg, .vi { color: $K100; } // Name
+  .gd, .gd .x { text-decoration: line-through; } // Generic.Deleted
+  .gi, .gi .x { color: $K75; text-decoration: underline; } // Generic.Inserted
+  .gh { font-weight: bold; } // Generic.Heading
+  .gu { color: $K75; font-weight: bold; } // Generic.Subheading
+  .gs { font-weight: bold; } // Generic.Strong
+  .ge { text-decoration: underline; } // Generic.Emph
+  .go { color: $K75 } // Generic.Output
+  .gp { color: $K50 } // Generic.Prompt
+  .gt { color: $K50 } // Generic.Trackback
+  .w { color: $K25 } // Text.Whitespace
+}

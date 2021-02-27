@@ -1,0 +1,46 @@
+---
+title: Cogitorium
+toc: false
+noanchor: true
+---
+
+<p class="margin"><img src="/logo.svg" alt="MJC lamp logo" width="162px" /></p>
+
+<h1 id="latest-posts">What's new?</h1>
+<ul class="post-index">
+{% for post in site.posts limit:5 %}
+  <li>{{ post.date | date: "%B %e, %Y"}}: <a href="{{ post.url }}">{{ post.title }}</a><p>{{ post.description | default: post.excerpt | strip_html | slice: 0, 160 }}</p></li>
+{% endfor %}
+</ul>
+
+<h1 id="recent-reads">Recent reads</h1>
+<!-- 1592669016 -->
+<style type="text/css" media="screen">
+  .gr_custom_container_1592669016 { width: 100%; }
+  .gr_custom_header_1592669016 { visibility: hidden; height: 0px; margin: 0px; padding: 0px; }
+  .gr_custom_each_container_1592669016 {
+    width: 100%;
+    clear: both;
+    margin-bottom: 10px;
+    overflow: auto;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #aaa;
+  }
+  .gr_custom_book_container_1592669016 {
+    overflow: hidden;
+    height: 60px;
+    float: left;
+    margin-right: 4px;
+    width: 39px;
+  }
+  .gr_custom_author_1592669016 { font-size: .9rem; }
+  .gr_custom_tags_1592669016 { font-size: .9rem; color: gray; }
+  .gr_custom_rating_1592669016 { float: right; }
+  .gr_custom_review_1592669016 { clear: both; padding-top: 4px; }
+</style>
+  <div id="gr_custom_widget_1592669016" class="gr">
+  <noscript>
+    View my <a href="https://www.goodreads.com/review/list/3075325-michael-culbertson?shelf=read">reading log on Goodreads</a>.
+  </noscript>
+  </div>
+<script src="https://www.goodreads.com/review/custom_widget/3075325.Reading%20log?cover_position=left&cover_size=small&num_books=5&order=d&shelf=read&show_author=1&show_cover=1&show_rating=1&show_review=1&show_tags=0&show_title=1&sort=date_read&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=none&widget_id=1592669016&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
