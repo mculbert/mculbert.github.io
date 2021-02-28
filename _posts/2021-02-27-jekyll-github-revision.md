@@ -77,3 +77,5 @@ than one commit before outputting any results.  The rest formats the
 revision date and commit message, along with a link to the commit log for
 the file on GitHub.  Finally, the HTML-formatted revision text is stuffed
 into the content of the `div.revision` target element.
+
+Piece of cake!
