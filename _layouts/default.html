@@ -72,7 +72,7 @@ fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?pat
       var d = new Date(json[0].commit.author.date);
       document.querySelector("div.revision").innerHTML = "Revised " +
         d.toLocaleString() + ": " +
-        json[0].commit.message + " (<a href='{{ site.github.repository_url }}/commits/master/{{ page.path }}'>history</a>)";
+        json[0].commit.message + " (<a href='{{ site.github.repository_url }}/commits/main/{{ page.path }}'>history</a>)";
     } });
 {% endif %}
 window.onbeforeprint = function(e) { document.querySelector('div.print-qr-code').innerHTML = "<img src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{ page.url | absolute_url }}'/>"; };
