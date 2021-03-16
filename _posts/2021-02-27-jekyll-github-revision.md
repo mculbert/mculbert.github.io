@@ -56,7 +56,7 @@ fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?pat
     if (json.length > 1) {
       var d = new Date(json[0].commit.author.date);
       document.querySelector("div.revision").innerHTML = "Revised " +
-        d.toLocaleString() + ": " +
+        d.toLocaleDateString() + " (" + d.toLocaleTimeString() + "): " +
         json[0].commit.message + " (<a href='{{ site.github.repository_url }}/commits/main/{{ page.path }}'>history</a>)";
     } });
 ~~~
