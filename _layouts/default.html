@@ -64,7 +64,7 @@
   gtag('js', new Date());
   gtag('config', 'G-W999H48Z7X');
 {% endif %}
-{% if site.github.repository_nwo %}
+{% if site.github.repository_nwo %}{% unless page.norevision %}
 fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?path={{ page.path }}&page=1&per_page=2")
   .then((response) => { return response.json(); })
   .then((json) => {
@@ -74,7 +74,7 @@ fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?pat
         d.toLocaleDateString() + " (" + d.toLocaleTimeString() + "): " +
         json[0].commit.message + " (<a href='{{ site.github.repository_url }}/commits/main/{{ page.path }}'>history</a>)";
     } });
-{% endif %}
+{% endunless %}{% endif %}
 window.onbeforeprint = function(e) { document.querySelector('div.print-qr-code').innerHTML = "<img src='https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{ page.url | absolute_url }}'/>"; };
 //]]>
 </script>
