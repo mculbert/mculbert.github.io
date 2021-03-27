@@ -30,6 +30,7 @@ defaults:
       path: "siteindex"
     values:
       layout: "siteindex"
+      breadcrumbs: true
 
 exclude:
   - .jekyll-cache/

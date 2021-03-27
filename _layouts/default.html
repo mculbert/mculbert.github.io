@@ -12,6 +12,23 @@
   <link rel="apple-touch-icon" href="/icon.png">
   <link rel="mask-icon" href="/logo.svg">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W999H48Z7X"></script>
+{% if page.breadcrumbs %}{% assign crumbs = page.url | remove: '/index.html' | split: '/' %}
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem", "position": 1,
+      "name": "Cogitorium",
+      "item": "{{ site.url }}"
+  {% for crumb in crumbs offset: 1 %}
+    },{
+      "@type": "ListItem", "position": {{ forloop.index | plus: 1 }},
+      "name": "{% if forloop.last %}{{ page.title }}{% else %}{{ site.data.sections[crumb].name | default: crumb | capitalize }}{% endif %}",
+      "item": "{{ site.url }}{% assign crumb_limit = forloop.index %}{% for crumb in crumbs offset: 1 limit: crumb_limit %}/{{ crumb }}{% endfor %}"
+  {% endfor %}
+    }]
+  }
+  </script>
+{% endif %}
 </head>
 <body><div class="container">
 
@@ -29,6 +46,14 @@
   <div class="pagetitle">{{ page.title }}</div>
 </div>
 <div class="header-row-below">
+{% if page.breadcrumbs %}
+<div class="breadcrumbs"><nav aria-label="Breadcrumbs">
+  <a href="/">Cogitorium</a>
+  {% for crumb in crumbs offset: 1 %}{% unless forloop.last %}
+  &gt; <a href="{% assign crumb_limit = forloop.index %}{% for crumb in crumbs offset: 1 limit: crumb_limit %}/{{ crumb }}{% endfor %}">{{ site.data.sections[crumb].name | default: crumb | capitalize }}</a>
+  {% endunless %}{% endfor %}
+</nav></div>
+{% else %}
   <div class="postdate">{{ page.date | date: "%A, %B %e, %Y" }}</div>
   <div class="site-nav"><nav aria-label="Site Navigation"><ul>
     {% if page.category %}<li><a href="/siteindex/{{ page.category | remove: ' ' }}">{{ page.category | capitalize }}</a></li>{% endif %}
@@ -39,6 +64,7 @@
     <li><a href="/siteindex">Index</a></li>
     </ul></nav></div>
 </div>
+{% endif %}
 </header>
 
 <main>
