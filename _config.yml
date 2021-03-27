@@ -19,11 +19,17 @@ twitter:
 logo: icon.png
 
 defaults:
-  - scope:
+  -
+    scope:
       path: ""
     values:
       layout: "default"
       toc: true
+  -
+    scope:
+      path: "siteindex"
+    values:
+      layout: "siteindex"
 
 exclude:
   - .jekyll-cache/
