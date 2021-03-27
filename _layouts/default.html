@@ -30,7 +30,64 @@
   </script>
 {% endif %}
 </head>
-<body><div class="container">
+<body>
+<div id="cookie-consent" class="cookie-consent" aria-label="Cookie consent banner">
+  <span style="padding:.5rem;display:block;">We use cookies to understand how visitors are using this site and to improve the experience of ads.</span>
+  <button id="cookie-consent-dismiss" class="cookie-consent-btn" style="background:green;color:white" onclick="recordConsent();document.getElementById('cookie-consent').style.display = 'none';">OK</button>
+  <a class="cookie-consent-btn" href="/privacy">Learn More</a>
+  <button class="cookie-consent-btn" id="cookie-consent-customize-btn" onclick="document.getElementById('cookie-consent-customize').style.display = 'grid';document.getElementById('cookie-consent-customize-btn').style.display = 'none';">Customize</button>
+  <div id="cookie-consent-customize" style="display:none;padding-top:.5rem;grid-template-columns: max-content max-content;grid-gap:5px;">
+    <span style="margin-bottom: 10px">Select which cookies you accept:</span><span></span>
+    <span id="cookie-consent-label-analytics" aria-hidden="true">Website usage statistics</span> <label class="switch"><input id="cookie-consent-analytics" type="checkbox" checked aria-labelledby="cookie-consent-label-analytics" /><span class="slider"></span></label>
+    <span id="cookie-consent-label-ads" aria-hidden="true">Ad personalization</span> <label class="switch"><input id="cookie-consent-ads" type="checkbox" checked aria-labelledby="cookie-consent-label-ads" /><span class="slider"></span></label>
+  </div>
+</div>
+<script>
+//<![CDATA[
+  function readCookie(name) {
+    var nameEq = name + "=";
+    var cookies = document.cookie.split(';');
+    for(var i=0; i < cookies.length; i++) {
+      var c = cookies[i];
+      while (c.charAt(0)==' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEq) == 0) return c.substring(nameEq.length,c.length);
+    }
+    return null;
+  }
+  function recordConsent() {
+    var date = new Date();
+    date.setTime(date.getTime() + (365*24*3600*1000));
+    var suffix = "; expires=" + date.toUTCString() + "; path=/";
+    document.cookie = "cookie_consent_ads=" + document.getElementById('cookie-consent-ads').checked + suffix;
+    document.cookie = "cookie_consent_analytics=" + document.getElementById('cookie-consent-analytics').checked + suffix;
+    document.cookie = "cookie_consent_cleared=true" + suffix;
+    gtag('consent', 'update', {
+      'ad_storage': (document.getElementById('cookie-consent-ads').checked ? 'granted' : 'denied'),
+      'analytics_storage': (document.getElementById('cookie-consent-analytics').checked ? 'granted' : 'denied')
+    });
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { 'ad_storage': 'denied' });
+  gtag('consent', 'default', { 'analytics_storage': 'denied', 'region': ['EU', 'UK'] });
+
+  if (readCookie('cookie_consent_cleared')) {
+    document.getElementById('cookie-consent').style.display = 'none';
+    document.getElementById('cookie-consent-ads').checked = (readCookie('cookie_consent_ads') == 'true');
+    document.getElementById('cookie-consent-analytics').checked = (readCookie('cookie_consent_analytics') == 'true');
+    gtag('consent', 'update', {
+      'ad_storage': (document.getElementById('cookie-consent-ads').checked ? 'granted' : 'denied'),
+      'analytics_storage': (document.getElementById('cookie-consent-analytics').checked ? 'granted' : 'denied')
+    });
+  }
+{% if jekyll.environment == 'production' %}
+  gtag('js', new Date());
+  gtag('config', 'G-W999H48Z7X');
+{% endif %}
+//]]>
+</script>
+<div class="container">
 
 <header>
 <div class="header-row-above">
@@ -80,17 +137,12 @@
 
 <footer>
 <div class="revision"></div>
+<a href="/privacy">Privacy policy</a>
 </footer>
 
 </div>
 <script>
 //<![CDATA[
-{% if jekyll.environment == 'production' %}
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-W999H48Z7X');
-{% endif %}
 {% if site.github.repository_nwo %}{% unless page.norevision %}
 fetch("https://api.github.com/repos/{{ site.github.repository_nwo }}/commits?path={{ page.path }}&page=1&per_page=2")
   .then((response) => { return response.json(); })

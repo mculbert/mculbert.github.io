@@ -9,10 +9,11 @@ $sans: 'Gill Sans', 'Gill Sans MT', 'Gill Sans Nova', 'gill-sans-nova', 'Proza L
 $serif: 'Crimson Text', serif;
 $mono: 'Ubuntu Mono', monospace;
 
+.cookie-consent { font: 1rem/1 $sans; }
 div.pagetitle { font: 1.45rem/1.33 $sans; }
 div.header-row-above { font: 1rem/1 $sans; }
 div.header-row-below { font: 1rem/1.36 $sans; }
-div.revision { font: 1rem/1.36 $sans; }
+footer { font: 1rem/1.36 $sans; }
 div.toc { font: 1rem/1.36 $sans; }
 
 ul.post-index li { font: 1rem/1.36 $serif; }
