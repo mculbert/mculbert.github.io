@@ -44,7 +44,7 @@ p.callout { font: italic 1rem/1.36 $sans; }
 figcaption { font-weight: bold; }
 
 @media screen and (min-width: 738px) {
-  p.margin { font-weight: bold; }
+  /* p.margin { font-weight: bold; } */
   p.callout { font-style: normal; }
 }
 
